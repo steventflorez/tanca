@@ -3,6 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="/css/style.css">
     <link rel="stylesheet" href="https://bootswatch.com/5/journal/bootstrap.css">
     <script src="js/credenciales.js"></script>
     <script src="js/index.js"></script>
@@ -12,6 +13,8 @@
     <title>Document</title>
 </head>
 <body>
+
+  <div id="loaded"  class="loader"></div>
     <div id="root" class="root">
         <nav class="navbar navbar-expand-lg bg-primary" data-bs-theme="dark">
             <div class="container-fluid">
@@ -52,6 +55,7 @@
           </nav>
 
           <div class="container">
+            
 
             <div class="row">
                 <div class="col-6">
@@ -79,6 +83,7 @@
             <div class="col-12">
                 <table class="table table-hover">
                     <thead id="encabezadoTabla">
+                      <span id="cargando">Cargando...</span>
                       
                     </thead>
                     <tbody id="cuerpoTabla">

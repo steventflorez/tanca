@@ -11,6 +11,7 @@ let tokenClient;
 let gapiInited = false;
 let gisInited = false;
 
+
 //botones de autenticacion
 document.getElementById('authorize_button').style.visibility = 'hidden';
 
@@ -65,15 +66,19 @@ document.getElementById("gapi").addEventListener("load",gapiLoaded);
 
   //SI LA RESPUESTA ES POSITIVA ARRANCA CON LA PETICION
   function handleAuthClick() {
+    
+    
     tokenClient.callback = async (resp) => {
+      
       if (resp.error !== undefined) {
         throw (resp);
       }
       
+     
       document.getElementById('root').style.display = 'block';
       document.getElementById('authorize_button').style.visibility = 'hidden';
       //await getTurnos();
-      
+     
     };
 
     if (gapi.client.getToken() === null) {

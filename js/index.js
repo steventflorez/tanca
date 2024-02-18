@@ -20,8 +20,14 @@ let infoRuta = {
 
 
 document.addEventListener('DOMContentLoaded',()=>{
+
+    const loader = document.querySelector('.loader');
     encabezadoTabla = document.getElementById('encabezadoTabla');
     cuerpoTabla = document.getElementById('cuerpoTabla');
+    document.getElementById('cargando').style.visibility ='hidden';
+
+
+    loader.classList.add("loader-hidden");
 
     cuerpoTabla.addEventListener('click', (e)=>{
        
@@ -33,9 +39,10 @@ document.addEventListener('DOMContentLoaded',()=>{
     document.getElementById('FormularioBusqueda').addEventListener('submit', (e)=>{
         e.preventDefault();
         
+        document.getElementById('cargando').style.visibility ='visible';
+        console.log(loader)
         const ruta = document.getElementById('ruta').value
-        const inf = document.getElementById('info').value
-        
+        const inf = document.getElementById('info').value.toUpperCase()
         rutaPeticion(ruta, inf)
     })
 })
@@ -70,6 +77,8 @@ async function enrutadorClicks(clas,ruta){
  * mostrar info de rutas
  */
 function pintarInfoRuta(){
+    document.getElementById('cargando').style.visibility ='hidden';
+   
     encabezadoTabla.innerHTML = `<tr>
     <th scope="col">Codigo de repartidor</th>
     <th scope="col">Proveedor</th>
@@ -108,13 +117,24 @@ async function  rutaPeticion(ruta, inf){
 
             break;
 
+         case 'Cod. Repartidor':
+            infoRutaSimple = await getInfoRuta(inf)
+            infoRuta.codRuta = inf
+            infoRuta.nombreRepartidor = infoRutaSimple[2]
+            infoRuta.proveedor = infoRutaSimple[1]
+            infoRuta.supervisor = infoRutaSimple[3]
+
+            pintarInfoRuta()
+            break;
+
     }
 
 }
 
 function codPostalList(values){
+    document.getElementById('cargando').style.visibility ='hidden';
     
-
+   
     encabezadoTabla.innerHTML = `<tr>
     <th scope="col">Codigo de repartidor</th>
     <th scope="col">Numero de Envios</th>
