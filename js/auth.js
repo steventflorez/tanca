@@ -13,8 +13,8 @@ let gisInited = false;
 
 //botones de autenticacion
 document.getElementById('authorize_button').style.visibility = 'hidden';
-document.getElementById('signout_button').style.display = 'none';
-//document.getElementById('root').style.display = 'none';
+
+document.getElementById('root').style.display = 'none';
 
 //la solicitud de autenticacion de google
 document.getElementById("gapi").addEventListener("load",gapiLoaded);
@@ -69,9 +69,9 @@ document.getElementById("gapi").addEventListener("load",gapiLoaded);
       if (resp.error !== undefined) {
         throw (resp);
       }
-      document.getElementById('signout_button').style.display = 'inline-block';
+      
       document.getElementById('root').style.display = 'block';
-      document.getElementById('authorize_button').innerText = 'Refresh';
+      document.getElementById('authorize_button').style.visibility = 'hidden';
       //await getTurnos();
       
     };

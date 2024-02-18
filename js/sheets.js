@@ -1,4 +1,82 @@
 const hoja = "BD";
+const hoja2 = "info"
+let informacionRura;
+
+async function getInfoRuta(r){
+  console.log(r)
+  let response;
+  try {
+    response = await gapi.client.sheets.spreadsheets.values.get({
+      spreadsheetId: SPREADSHEET,
+      range: hoja2 + "!A:D"
+      
+    });
+
+   
+  } catch (err) {
+    console.log(err.message)
+    return;
+  }
+  const range = response.result;
+  if (!range || !range.values || range.values.length == 0) {
+    document.getElementById("content").innerText = "No values found.";
+    return;
+  }
+
+  
+
+  //console.log(range.values)
+  range.values.forEach((fila) => {
+    if (isNaN(parseInt(fila[0])) || fila[5] !== undefined) return;
+    //console.log(fila)
+  
+    if(fila[0] == r){
+     
+      informacionRura = fila
+      
+    }
+
+ 
+  });
+
+ 
+
+  return(informacionRura)
+ // Imprimir los resultados
+
+  
+}
+//GUARDAR LOS DATOS
+function appendValues( ) {
+  let values = [
+    [
+      "460P6666",
+      "460S0524"
+    ],
+    // Additional rows ...
+  ];
+ 
+  const body = {
+    values: values,
+  };
+  try {
+    gapi.client.sheets.spreadsheets.values.append({
+      spreadsheetId: SPREADSHEET,
+      range: hoja + "!A:A",
+      valueInputOption: "USER_ENTERED",
+      resource: body,
+    }).then((response) => {
+      const result = response.result;
+      console.log(`${result.updates.updatedCells} cells appended.`);
+      
+    });
+  } catch (err) {
+    document.getElementById('content').innerText = err.message;
+    return;
+  }
+  
+}
+
 //LLAMAR por codigo portal
 async function getRepartidores(cp) {
     
@@ -9,7 +87,7 @@ async function getRepartidores(cp) {
         range: hoja + "!A:E"
       });
     } catch (err) {
-      document.getElementById("content").innerText = err.message;
+      console.log(err.message)
       return;
     }
     const range = response.result;
