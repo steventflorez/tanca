@@ -137,9 +137,9 @@ function codPostalList(values){
     document.getElementById('cargando').style.visibility ='hidden';
     
    
-    encabezadoTabla.innerHTML = `<tr>
-    <th scope="col">Codigo de repartidor</th>
-    <th scope="col">Numero de Envios</th>
+    encabezadoTabla.innerHTML = `<tr class = "table-success">
+    <th scope="col">Cod. repartidor</th>
+    <th scope="col"># Envios</th>
     <th scope="col">Supervisor</th>
     <th scope="col">Repartidor</th>
     <th scope="col"></th>
