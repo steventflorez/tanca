@@ -91,6 +91,7 @@ async function getRepartidores(cp) {
       return;
     }
     const range = response.result;
+    
     if (!range || !range.values || range.values.length == 0) {
       document.getElementById("content").innerText = "No values found.";
       return;
@@ -98,6 +99,7 @@ async function getRepartidores(cp) {
   
     rutas = [];
     repetidor = []
+
     //console.log(range.values)
     range.values.forEach((fila) => {
       if (isNaN(parseInt(fila[0])) || fila[5] !== undefined) return;
@@ -106,6 +108,7 @@ async function getRepartidores(cp) {
         if(rutas.includes(fila[0])){
            repetidor.push(fila[0])
         }else{
+          
           repetidor.push(fila[0])
             rutas.push(fila[0])
         }
@@ -125,6 +128,7 @@ async function getRepartidores(cp) {
        // console.log(fila[3])
      // turnos.push(nuevoTurno);
     });
+
     var contador = {};
     let element = []
     repetidor.forEach(function(elemento) {
@@ -142,15 +146,20 @@ async function getRepartidores(cp) {
    // Imprimir los resultados
    console.log("Número de repeticiones de cada elemento:");
     for (var elemento in contador) {
+      let infoSuper = await getInfoRuta(elemento)
+     
       element.push(
         {
             element: elemento,
-            contador:  contador[elemento]
+            contador:  contador[elemento],
+            infoSuper: infoSuper[3],
+            nombreRepartidor: infoSuper[2]
+
         }
     )
   
 }
-    console.log(element)
+   
     return element
     
   }

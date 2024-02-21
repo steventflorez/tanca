@@ -48,7 +48,7 @@ document.addEventListener('DOMContentLoaded',()=>{
 })
 
 
-console.log('info')
+
 
 /**
  * enrutador de clicks
@@ -131,24 +131,32 @@ async function  rutaPeticion(ruta, inf){
 
 }
 
+
 function codPostalList(values){
+    let colorRow = "active"
     document.getElementById('cargando').style.visibility ='hidden';
     
    
     encabezadoTabla.innerHTML = `<tr>
     <th scope="col">Codigo de repartidor</th>
     <th scope="col">Numero de Envios</th>
+    <th scope="col">Supervisor</th>
+    <th scope="col">Repartidor</th>
     <th scope="col"></th>
   </tr>`
   cuerpoTabla.innerHTML = '';
    values.forEach(element => {
-    cuerpoTabla.innerHTML += `<tr class="table-primary">
+    
+    cuerpoTabla.innerHTML += `<tr class="table-${colorRow}">
   <th scope="row">${element.element}</th>
   <th scope="row">${element.contador}</th>
+  <th scope="row">${element.infoSuper}</th>
+  <th scope="row">${element.nombreRepartidor}</th>
   <td><button type="button" class="btn btn-info mas">=></button></td>
   
   </tr>`
-
+  if(colorRow == "active")colorRow = "default" ; else colorRow = "active"
+  console.log(colorRow)
     
    });
   
