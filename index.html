@@ -10,6 +10,8 @@
     <script async defer src="https://apis.google.com/js/api.js" id="gapi"></script>
 	<script async defer src="https://accounts.google.com/gsi/client" id="gis"></script>
 	<script async defer src="js/sheets.js"></script>
+
+
   <style>
     body{
       width: 400px;
@@ -32,6 +34,8 @@
       align-items: center;
     }
   </style>
+
+  
     <title>CTT-GESTION</title>
 </head>
 <body>
@@ -171,17 +175,26 @@
               let cod = data.codeResult.code.toString(); 
   
               let codShort = cod.substring(0, cod.length - 3)
-              console.log(cod)
-              document.querySelector('#info').value = codShort;
-              document.querySelector('#camera').innerHTML = "";
+              
+             
   
               if(codShort.length == 22){
-                  console.log("22")
+                activarSonido();
+                 
+              document.querySelector('#info').value = codShort;
+              document.querySelector('#camera').innerHTML = "";
                   Quagga.stop();
                   
               }
           });
+
+          const activarSonido = ()=>{
+            let audio = document.getElementById('audioScaner');
+            audio.play();
+          }
   
       </script>
+
+<audio id="audioScaner" src="/sonido.mp3"></audio>
 </body>
 </html>

@@ -135,10 +135,18 @@ async function  rutaPeticion(ruta, inf){
             
             infoGeneral = await getGeneral(inf);
             info = await getRepartidores(infoGeneral.codPostal);
+            console.log(info)
             codPostalList(info)
-            pintarRepartidor(infoGeneral)
 
-            console.log(infoGeneral);
+            info.forEach((e)=>{
+                if(e.element == infoGeneral.codRepartidor){
+                    pintarRepartidor(infoGeneral, e.infoSuper)
+                }
+            })
+          
+            
+
+        
 
             break;
 
@@ -149,11 +157,11 @@ async function  rutaPeticion(ruta, inf){
 
 }
 
-function pintarRepartidor(value){
+function pintarRepartidor(value, su){
     document.getElementById('cargando').style.visibility ='hidden';
 
     repartidor.innerHTML = `<div class="card border-primary mb-3" style="max-width: 20rem;">
-    <div class="card-header">${value.codRepartidor}</div>
+    <div class="card-header"><h3>${value.codRepartidor}</h3> ${su}</div>
     <div class="card-body">
       
       <div class = "row">
@@ -161,6 +169,16 @@ function pintarRepartidor(value){
       <div class = "col-6">
       <p class="card-text"> <strong>Cod. Postal: </strong> ${value.codPostal}</p>
       </div>
+
+      <div class = "col-6">
+      <p class="card-text"> <strong>Poblacion: </strong> ${value.poblacion}</p>
+      </div>
+
+      <div class = "col-6">
+      <p class="card-text"> <strong>Direccion: </strong> ${value.direccion}</p>
+      </div>
+
+      
       </div>
      
     </div>
@@ -183,6 +201,7 @@ function codPostalList(values){
     <th scope="col"># Envios</th>
     <th scope="col">Supervisor</th>
     <th scope="col">Repartidor</th>
+    <th scope="col">Poblacion</th>
     <th scope="col"></th>
   </tr>`
   cuerpoTabla.innerHTML = '';
@@ -193,6 +212,7 @@ function codPostalList(values){
   <th scope="row">${element.contador}</th>
   <th scope="row">${element.infoSuper}</th>
   <th scope="row">${element.nombreRepartidor}</th>
+  <th scope="row">${element.poblacion}</th>
   <td><button type="button" class="btn btn-info mas">=></button></td>
   
   </tr>`

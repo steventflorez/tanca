@@ -147,8 +147,9 @@ async function getRepartidores(cp) {
     }
   
     rutas = [];
-    repetidor = []
-
+    repetidor = [];
+    poblacion = {};
+   
     //console.log(range.values)
     range.values.forEach((fila) => {
       if (isNaN(parseInt(fila[0])) || fila[5] !== undefined) return;
@@ -159,9 +160,12 @@ async function getRepartidores(cp) {
         }else{
           
           repetidor.push(fila[0])
-            rutas.push(fila[0])
+          rutas.push(fila[0])
+            poblacion[fila[0]] = fila[3]
         }
       }
+
+      
 
       
      /* const nuevoTurno = {
@@ -187,6 +191,7 @@ async function getRepartidores(cp) {
       } else {
         // Si el elemento no existe en el objeto contador, inicializa su contador en 1
         contador[elemento] = 1;
+        
       }
     });
 
@@ -202,7 +207,8 @@ async function getRepartidores(cp) {
             element: elemento,
             contador:  contador[elemento],
             infoSuper: infoSuper[3],
-            nombreRepartidor: infoSuper[2]
+            nombreRepartidor: infoSuper[2],
+            poblacion: poblacion[elemento]
 
         }
     )
