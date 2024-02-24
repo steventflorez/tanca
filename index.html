@@ -10,6 +10,27 @@
     <script async defer src="https://apis.google.com/js/api.js" id="gapi"></script>
 	<script async defer src="https://accounts.google.com/gsi/client" id="gis"></script>
 	<script async defer src="js/sheets.js"></script>
+  <style>
+    body{
+      width: 400px;
+    }
+    #camera{
+        width: 100px;
+        height: 50px;
+    }
+
+    #camera > video{
+        width: 400px;
+        height: 200px;
+        align-items: center;
+    }
+
+    .scannBtn{
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
+  </style>
     <title>CTT-GESTION</title>
 </head>
 <body>
@@ -48,13 +69,16 @@
                     <div class="form-group">
                         <label for="exampleSelect1" class="form-label mt-4">Tipo de busqueda</label>
                         <select class="form-select" id="ruta">
-                          <option>cod. Postal</option>
-                          <option>Cod. Repartidor</option>
                           <option>Cod. Paquete</option>
+                          <option>cod. Postal</option>
+                          <option>Cod. Repartidor</option> 
                           <option>Direccion</option>
                           <option>Supervisor</option>
                         </select>
                       </div>
+                </div>
+                <div class="col-6 scannBtn">
+                  <button onclick="iniciar()">escanear</button>
                 </div>
                 <br>
                 <div class="col-12">
@@ -64,6 +88,10 @@
                       </form>
                 </div>
                 
+            </div>
+            <br>
+            <div id="repartidor">
+
             </div>
 
             <div class="col-12">
@@ -78,6 +106,16 @@
                   </table>
             </div>
 
+            
+    
+    
+
+    <div id="resultado"></div>
+    <div id="camera-container">
+        <div id="camera" autoplay>
+
+        </div>
+      </div>
 
             
           </div>
@@ -86,11 +124,69 @@
 
     
     <button id="authorize_button" class="btn btn-primary" onclick="handleAuthClick()">Iniciar sesión</button>
+
    
 
         
 
 
         <script src="js/auth.js"></script>
+        <script src="quagga.min.js"></script>
+
+        <script>
+          const video = document.getElementById('camera'); 
+  
+          function iniciar(){
+           
+            
+              Quagga.init({
+              inputStream: {
+                  name: "Live",
+                  type: "LiveStream",
+                  target: document.querySelector('#camera') ,
+                  // Or '#yourElement' (optional)
+              },
+              decoder: {
+                  readers: ["code_128_reader"]
+              },
+    area: { // defines rectangle of the detection/localization area
+      top: "50%",    // top offset
+      right: "0%",  // right offset
+      left: "0%",   // left offset
+      bottom: "0%"  // bottom offset
+    },
+    singleChannel: true 
+          }, function (err) {
+              if (err) {
+                  console.log(err);
+                  return
+              }
+              console.log("Initialization finished. Ready to start");
+              Quagga.start();
+          });
+  
+          }
+
+          
+         
+  
+          Quagga.onDetected(function (data) {
+  
+              console.log(data.codeResult.code);
+              let cod = data.codeResult.code.toString(); 
+  
+              let codShort = cod.substring(0, cod.length - 3)
+              console.log(cod)
+              document.querySelector('#info').value = codShort;
+              document.querySelector('#camera').innerHTML = "";
+  
+              if(codShort.length == 22){
+                  console.log("22")
+                  Quagga.stop();
+                  
+              }
+          });
+  
+      </script>
 </body>
 </html>

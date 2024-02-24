@@ -1,8 +1,10 @@
 
 let info;
 let encabezadoTabla;
+let repartidor;
 let cuerpoTabla;
 let infoRutaSimple ;
+let infoGeneral ;
 let infoRuta = {
     codRuta : '',
     codPostal: '',
@@ -23,6 +25,7 @@ document.addEventListener('DOMContentLoaded',()=>{
 
     const loader = document.querySelector('.loader');
     encabezadoTabla = document.getElementById('encabezadoTabla');
+    repartidor = document.getElementById('repartidor');
     cuerpoTabla = document.getElementById('cuerpoTabla');
     document.getElementById('cargando').style.visibility ='hidden';
 
@@ -127,9 +130,47 @@ async function  rutaPeticion(ruta, inf){
             pintarInfoRuta()
             break;
 
+        case 'Cod. Paquete':
+                console.log("paquete")
+            
+            infoGeneral = await getGeneral(inf);
+            info = await getRepartidores(infoGeneral.codPostal);
+            codPostalList(info)
+            pintarRepartidor(infoGeneral)
+
+            console.log(infoGeneral);
+
+            break;
+
+            
+            
+
     }
 
 }
+
+function pintarRepartidor(value){
+    document.getElementById('cargando').style.visibility ='hidden';
+
+    repartidor.innerHTML = `<div class="card border-primary mb-3" style="max-width: 20rem;">
+    <div class="card-header">${value.codRepartidor}</div>
+    <div class="card-body">
+      
+      <div class = "row">
+
+      <div class = "col-6">
+      <p class="card-text"> <strong>Cod. Postal: </strong> ${value.codPostal}</p>
+      </div>
+      </div>
+     
+    </div>
+  </div>`
+    
+
+
+}
+
+//pinta en el dom todos los repartidores con el mismo codigo portal
 
 
 function codPostalList(values){
