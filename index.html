@@ -16,6 +16,14 @@
     body{
       width: 400px;
     }
+
+    #iniSesion{
+      width: 100%;
+      height: 500px;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
    
     #camera{
       width: 100%;
@@ -35,7 +43,7 @@
     }
   </style>
 
-  
+
     <title>CTT-GESTION</title>
 </head>
 <body>
@@ -95,6 +103,7 @@
                 
             </div>
             <br>
+            <span id="cargando">Cargando...</span>
             <div id="repartidor">
 
             </div>
@@ -102,7 +111,7 @@
             <div class="col-12">
                 <table class="table table-hover">
                     <thead id="encabezadoTabla" >
-                      <span id="cargando">Cargando...</span>
+                      
                       
                     </thead>
                     <tbody id="cuerpoTabla">
@@ -127,8 +136,11 @@
           
     </div>
 
-    
+   <div id="iniSesion">
+
     <button id="authorize_button" class="btn btn-primary" onclick="handleAuthClick()">Iniciar sesión</button>
+   </div> 
+   
 
    
 
